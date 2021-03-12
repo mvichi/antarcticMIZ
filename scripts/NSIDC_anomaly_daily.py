@@ -56,7 +56,8 @@ p = field.plot(figsize=(8.9,9.5),transform=data_crs,  # the data's projection
              aspect=len(field.xgrid) / len(field.ygrid),  # for a sensible figsize
              cmap=cmap, vmin=0, vmax=0.5,
              subplot_kws={'projection': map_proj},
-             cbar_kwargs={'label': 'Stdev of sea ice concentration anomaly from daily data [-]'})
+             cbar_kwargs={'shrink':0.8,'pad':0.05,'fraction':0.1,'aspect':25,
+                'label': 'Stdev of sea ice concentration anomaly from daily data [-]'})
 for i,ax in enumerate(p.axes.flat):
     ax.gridlines()
     ax.coastlines()
@@ -78,33 +79,73 @@ q = anom.seaice_conc_cdr.where(anom.seaice_conc_cdr>0.).median(dim='time')
 #%% Plot the median
 # This is used to define a threshold of variability that is indicative of 
 # the MIZ
-plt.figure(figsize=(6, 6))
-ax = plt.axes(projection=map_proj)
+fmed=plt.figure(figsize=(6, 6))
+axmed = plt.axes(projection=map_proj)
 #ax.coastlines()
 x=q.xgrid
 y=q.ygrid
-ax.set_extent([x.min(), x.max(), y.min()+0.7e6, y.max()],
+axmed.set_extent([x.min(), x.max(), y.min()+0.7e6, y.max()],
                 ccrs.Stereographic(-90, 0))
 #ax.set_extent([-180, 180, -90, -52], ccrs.PlateCarree())
-ax.gridlines(draw_labels=True)
+axmed.gridlines(draw_labels=True)
 cmap=plt.cm.get_cmap('cmo.matter', 6)
-q.plot(ax=ax,transform=data_crs,
+q.plot(ax=axmed,transform=data_crs,
        cmap=cmap,vmin=0,vmax=0.3,
        cbar_kwargs={'orientation':'horizontal',
-                    'shrink':0.8,'pad':0.05,
+                    'shrink':0.8,'pad':0.04,
                     'label':'Median of the variability indicator [-]'})
-#im=ax.pcolormesh(x, y, q, transform=data_crs, cmap=cmap,vmin=0,vmax=0.3)
-#plt.colorbar(im,orientation='horizontal',shrink=0.8,pad=0.05)
 
-#%% timeseries of monthly stdevanom at selected locations
-ind=ll2grid(0,-60, q.longitude, q.latitude) # find the indices of the location
-ts = anom.seaice_conc_cdr.isel(ygrid=ind[0],xgrid=ind[1])
-tsp = ts.to_pandas() # convert to pandas for slicing, otherwise error
+
+#%% overlay points
+# execute this after the figure is produced
+plt.tight_layout(pad=1.15)
+# locations for timeseries analyses
+points=[
+ [0,[-56,-60,-68]],
+ [60,[-60,-63,-67]],
+ [120,[-62,-64,-66]],
+ [180,[-65,-70,-76]],
+ [-40,[-59,-62,-70]]
+ ]
+
+#[-80,[-66,-69,-71]] Amundsen-Bellingshausen
+
+for p in points:
+    lon=p[0]
+    lats=p[1]
+    for l in lats:
+        axmed.plot(lon,l,marker='o',markerfacecolor='None',
+                   color='k',transform=ccrs.PlateCarree())
+
+# timeseries of monthly stdevanom at selected locations
+def extract_ts(lon,lat):
+    ind=ll2grid(lon, lat, q.longitude, q.latitude) # find the indices of the location
+    ts = anom.seaice_conc_cdr.isel(ygrid=ind[0],xgrid=ind[1])
+    thres = q.isel(ygrid=ind[0],xgrid=ind[1]).values
+    return ts.to_pandas(),thres # convert to pandas for slicing, otherwise error
+
 #ts.sel(time=slice('2010-01-16','2011-12-16')).plot() # this one does not work
-plt.figure()
-tsp.loc['2015-01-01':'2020-01-01'].plot(marker='o')
-plt.grid(axis='x')
 
+#%% plot timeseries at different meridians
+# markers are plotted when stdev exists (there is sea ice)
+# a missing marker indicates no sea ice during that month
+f,axes = plt.subplots(5,1,figsize=(12,10))
+
+for i,ax in enumerate(axes.flat):
+    p=points[i]
+    lon=p[0]
+    lats=p[1]
+    for l in lats:
+        tsp,thres = extract_ts(lon,l)
+        tsp.loc['2010-01-01':'2015-01-01'].plot(ax=ax,marker='o',
+                                                label='{} ({:g})'.format(l,thres))
+    ax.set_ylim(0,0.42)
+    ax.set_xlabel('')
+    ax.set_ylabel('$\sigma$ anomaly [-]')
+    ax.legend()
+    ax.grid(axis='x')
+    ax.set_title('Longitude {}'.format(lon))
+plt.tight_layout()
 #%% Monthly maps of stdevanom from NSIDC for a selected year
 DIR='/mnt/d/SEAICE/NSIDC-G02202_V3/south/'
 df=DIR+'seaice_conc_dayanom_monstd_sh_1978_2019_v03r01.nc'
