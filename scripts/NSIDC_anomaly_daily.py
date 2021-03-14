@@ -13,7 +13,7 @@ standard deviation is computed for each month and for a climatological month
 import xarray as xr
 import numpy as np
 import matplotlib.pyplot as plt
-import cmocean
+import cmocean # using this through the "cmo" variable
 import pandas as pd
 import cartopy.crs as ccrs
 import calendar
@@ -79,6 +79,12 @@ q = anom.seaice_conc_cdr.where(anom.seaice_conc_cdr>0.).median(dim='time')
 #%% Plot the median
 # This is used to define a threshold of variability that is indicative of 
 # the MIZ
+
+# This is the data projection, that is their original coordinates
+data_crs = ccrs.Stereographic(-90, 0)
+# The projection keyword determines how the plot will look
+map_proj = ccrs.SouthPolarStereo()
+
 fmed=plt.figure(figsize=(6, 6))
 axmed = plt.axes(projection=map_proj)
 #ax.coastlines()
@@ -93,7 +99,7 @@ q.plot(ax=axmed,transform=data_crs,
        cmap=cmap,vmin=0,vmax=0.3,
        cbar_kwargs={'orientation':'horizontal',
                     'shrink':0.8,'pad':0.04,
-                    'label':'Median of the variability indicator [-]'})
+                    'label':'Median of $\sigma_{SIA}$ [-]'})
 
 
 #%% overlay points
@@ -125,7 +131,12 @@ def extract_ts(lon,lat):
     return ts.to_pandas(),thres # convert to pandas for slicing, otherwise error
 
 #ts.sel(time=slice('2010-01-16','2011-12-16')).plot() # this one does not work
-
+#%% plot the distribution of medians
+f=plt.figure()
+q.plot.hist()
+plt.title('')
+plt.xlabel('Median of $\sigma_{SIA}$ [-]')
+plt.ylabel('Counts')
 #%% plot timeseries at different meridians
 # markers are plotted when stdev exists (there is sea ice)
 # a missing marker indicates no sea ice during that month
@@ -138,12 +149,64 @@ for i,ax in enumerate(axes.flat):
     for l in lats:
         tsp,thres = extract_ts(lon,l)
         tsp.loc['2010-01-01':'2015-01-01'].plot(ax=ax,marker='o',
-                                                label='{} ({:g})'.format(l,thres))
+                                label='{} ({:g})'.format(l,thres))
     ax.set_ylim(0,0.42)
     ax.set_xlabel('')
-    ax.set_ylabel('$\sigma$ anomaly [-]')
+    ax.set_ylabel('$\sigma_{SIA}$ [-]')
     ax.legend()
     ax.grid(axis='x')
+    ax.set_title('Longitude {}'.format(lon))
+plt.tight_layout()
+
+#%% plot distributions
+# timeseries of monthly stdevanom at selected locations where std>0
+prop_cycle = plt.rcParams['axes.prop_cycle']
+colors = prop_cycle.by_key()['color']
+
+def extract_ts_nonzero(lon,lat):
+    ind=ll2grid(lon, lat, q.longitude, q.latitude) # find the indices of the location
+    ts = anom.seaice_conc_cdr.where(anom.seaice_conc_cdr>0.).isel(ygrid=ind[0],xgrid=ind[1])
+    thres = q.isel(ygrid=ind[0],xgrid=ind[1]).values
+    return ts.to_pandas(),thres # convert to pandas for slicing, otherwise error
+ 
+f,axes = plt.subplots(5,1,figsize=(12,10))
+
+for i,ax in enumerate(axes.flat):
+    p=points[i]
+    lon=p[0]
+    lats=p[1]
+    for n,l in enumerate(lats):
+        tsp,thres = extract_ts_nonzero(lon,l)
+        tsp.hist(ax=ax,bins=np.arange(0, 0.5, 0.025), density=True,
+                 label='{} ({:g})'.format(l,thres),color=colors[n])
+        ax.plot([thres,thres],[0,25],color=colors[n])
+    ax.set_xlim(0,0.5)
+    ax.set_ylim(0,25)
+    ax.set_ylabel('Density')
+    ax.legend()
+    ax.set_title('Longitude {}'.format(lon))
+ax.set_xlabel('$\sigma$ anomaly [-]')
+plt.tight_layout()
+
+#%% Distribution (box-n-whisker)
+prop_cycle = plt.rcParams['axes.prop_cycle']
+colors = prop_cycle.by_key()['color']
+
+f,axes = plt.subplots(5,1,figsize=(6,9))
+
+for i,ax in enumerate(axes.flat):
+    p=points[i]
+    lon=p[0]
+    lats=p[1]
+    data=[]
+    labels=[]
+    for n,l in enumerate(lats):
+        tsp,thres = extract_ts_nonzero(lon,l)
+        data.append(tsp.dropna())
+        labels.append('{} ({:g})'.format(l,thres))
+    ax.boxplot(data,labels=labels)
+    ax.set_ylim(0,0.5)
+    ax.set_ylabel('$\sigma_{SIA}$ [-]')
     ax.set_title('Longitude {}'.format(lon))
 plt.tight_layout()
 #%% Monthly maps of stdevanom from NSIDC for a selected year
@@ -163,5 +226,31 @@ for ax in p.axes.flat:
     ax.gridlines()
     ax.set_extent([-180, 180, -90, -55], ccrs.PlateCarree())
 
+#%% Plot the climatological mask based on the median criterion for each month
+# This is the data projection, that is their original coordinates
+data_crs = ccrs.Stereographic(-90, 0)
+# The projection keyword determines how the plot will look
+map_proj = ccrs.SouthPolarStereo()
+# get the months name
+months = calendar.month_name[1:]
+#months = calendar.month_abbr[1:]
 
+DIR='/mnt/d/SEAICE/NSIDC-G02202_V3/south/'
+df=DIR+'seaice_conc_dayanomstd_sh_1978_2019_v03r01.nc'
+anom=xr.open_dataset(df)
+data_crs = ccrs.Stereographic(-90, 0)
+field = anom.goddard_merged_seaice_conc.where(anom.goddard_merged_seaice_conc>0)
+cmap=plt.cm.get_cmap('cmo.matter', 10)
+p = field.plot(figsize=(8.9,9.5),transform=data_crs,  # the data's projection
+             col='time', col_wrap=3,  # multiplot settings
+             aspect=len(field.xgrid) / len(field.ygrid),  # for a sensible figsize
+             cmap=cmap, vmin=0, vmax=0.5,
+             subplot_kws={'projection': map_proj},
+             cbar_kwargs={'shrink':0.8,'pad':0.05,'fraction':0.1,'aspect':25,
+                'label': 'Stdev of sea ice concentration anomaly from daily data [-]'})
+for i,ax in enumerate(p.axes.flat):
+    ax.gridlines()
+    ax.coastlines()
+    ax.set_extent([-180, 180, -90, -52], ccrs.PlateCarree())
+    ax.set_title(months[i])
 

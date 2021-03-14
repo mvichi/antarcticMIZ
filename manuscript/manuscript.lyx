@@ -1,0 +1,356 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass scrartcl
+\begin_preamble
+\usepackage{lineno}
+\linenumbers
+\end_preamble
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command bibtex
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine natbib
+\cite_engine_type authoryear
+\biblio_style elsarticle-harv
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date true
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+A statistical definition of the Antarctic marginal ice zone
+\end_layout
+
+\begin_layout Author
+Marcello Vichi
+\end_layout
+
+\begin_layout Address
+Department of Oceanography, University of Cape Town
+\begin_inset Newline newline
+\end_inset
+
+MARIS
+\end_layout
+
+\begin_layout Abstract
+
+\series bold
+Abstract
+\series default
+ The MIZ
+\end_layout
+
+\begin_layout Section
+Introduction
+\end_layout
+
+\begin_layout Standard
+Main concept: the marginal ice zone in Antarctic sea ice is inextricably
+ linked to the seasonal ice zone during the advancement phase.
+ There is also an issue of nomenclature: new, young and first-year ice
+\end_layout
+
+\begin_layout Standard
+In the Antarctic, the MIZ is a characteristic of the advancing edge, since
+ during this phase sea ice progresses northwards and expands zonally due
+ to the increase in ocean surface towards the equator.
+ Hence, the MIZ can be depicted as a band of young ice that is continuously
+ affected by air-sea interactions, in the form of heat exchanges, wind and
+ current drag, and wave action.
+ Every latitude of the Southern Ocean will have a period of time in which
+ it can be classified as MIZ
+\end_layout
+
+\begin_layout Standard
+The first two mechanisms are at play everywhere in the sea ice.
+ They are however dampened because of the consolidated ice conditions and
+ the presence of snow that isolates the thinner ice from the atmosphere
+\end_layout
+
+\begin_layout Standard
+This feature is found in the Arctic only in the Bering Sea and in the Greenland
+ and Norwegian Seas (Wadhams book).
+ During the retreat, conditions are more similar to the Arctic: the progressive
+ melting and the breaking of ice floes increase the effectiveness of the
+ boundary layer processes, which rearrange the pack ice into open drift
+ conditions.
+\end_layout
+
+\begin_layout Standard
+Sea ice concentration (SIC) is measured at the Earth observation scale through
+ the use of satellites equipped with passive microwaves (PM) sensors.
+ Operationally, the MIZ is defined as that region of the sea ice where SIC
+ is comprised between 15 and 80% 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "strongArcticMarginalIce2013,stroeveMappingAssessingVariability2016"
+literal "false"
+
+\end_inset
+
+.
+ This definition is tightly linked to the SIC retrieval from satellite radiometr
+y, since the limit of 15% is considered to be a viable rule-of-thumb to
+ counter the uncertainties in the methodology.
+ Within this range, sea ice is assumed to be in open pack ice conditions,
+ with higher chances of drifting ice and the penetration of gravity waves
+ due to the floes being smaller than the wave length.
+ This definition is operationally viable at the monthly scale in the Antarctic.
+ Assuming that the sea-ice edge is traversing a region of open ocean in
+ one month, this area is likely to be classified as MIZ, since it will have
+ an expected SIC equal to 50%.
+ This definition is therefore indicative more of the seasonal ice zone and
+ the transition between new and young ice, rather than a measure of the
+ MIZ, in which ocean and atmospheric processes are determinant in shaping
+ the dynamics of sea ice.
+\end_layout
+
+\begin_layout Standard
+The assumption is that the PM-derived concentration contains information
+ on the sea-ice type, which cannot however be decomposed in a particular
+ category.
+ The change in pixel concentration, however small, is therefore a consistent
+ measure of change in ice character.
+ The interest here is not whether the retrieval of brightness temperature
+ is effectively measuring the concentration of ice-free versus ice-covered
+ ocean, but rather if the relative change in this proxy is representative
+ of a physical variation in sea ice conditions.
+ This is the main concept of the method proposed here.
+\end_layout
+
+\begin_layout Section
+Methodology
+\end_layout
+
+\begin_layout Subsection
+Remote sensing data
+\end_layout
+
+\begin_layout Standard
+Brief description of the Climate Data Records from NASA/NSIDC 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "pengLongtermReproduciblePassive2013,meierNOAANSIDCClimate2017"
+literal "false"
+
+\end_inset
+
+ and ESA.
+ The data cover the period 1979-2015 and 1987-2019
+\end_layout
+
+\begin_layout Subsection
+Statistical analysis
+\end_layout
+
+\begin_layout Standard
+The methodology treats the variability of satellite-retrieved SIC from the
+ MIZ as if it was noise, a perturbation around an expected value.
+ SIC is treated as the fraction between 0 and 1 in all computations and
+ figures.
+ Regions of closed pack ice, or of ice-free ocean outside the seasonal ice
+ zone are more likely to experience small variations around a long-term
+ mean value of the SIC (close to 1 in the former case and to 0 in the latter).
+ Multi-year ice and permanently ice-free ocean will have no noise, hence
+ negligible dispersion around the climatological mean.
+ The standard deviation of the daily SIC anomaly can thus be used to measure
+ the degree of variance in sea-ice conditions experienced by a certain pixel
+ over a month.
+ 
+\end_layout
+
+\begin_layout Standard
+The daily SIC anomaly 
+\begin_inset Formula $a_{i}$
+\end_inset
+
+ for each pixel, where the index 
+\begin_inset Formula $i$
+\end_inset
+
+ runs over the number of days in a month, is computed by subtracting the
+ daily SIC from the monthly climatology.
+ Since the variable SIC is constrained between 0 and 1, so is the anomaly.
+ The standard deviation of the daily anomaly is then computed for each month,
+ to measure the spread around the climatological SIC monthly mean
+\begin_inset Formula 
+\[
+\sigma_{SIA}^{m}=\sqrt{\frac{1}{N-1}\sum_{i=1}^{N}\left(a_{i}^{m}\right)^{2}}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The index 
+\begin_inset Formula $m$
+\end_inset
+
+ runs over the total number of months.
+ The standard deviation is effectively a sum of squares, since the mean
+ of the anomalies is null.
+ The climatological monthly standard deviation has also been computed by
+ pooling together all the daily anomalies for every month in different years.
+ The indicator 
+\begin_inset Formula $\sigma_{SIA}^{m}$
+\end_inset
+
+ describes a left bounded distribution, where the value 0 indicates lack
+ of SIC variability over the month, and the maximum expected value is 0.5.
+ The exclusion of the 0-values will thus return an unbiased distribution,
+ that can be characterised through the median.
+ Values larger than the median are more likely to be indicative of variable
+ SIC during the month.
+ It should be noted that this analysis does not objectively discriminate
+ between a region that is experiencing a seasonal transition of the MIZ
+ band or a persistence of conditions typical of the MIZ.
+ However, since the anomaly is computed over the same number of days, it
+ is more likely that a rapid transition between new, young and first-year
+ ice would result in a lower value of the indicator.
+ The median would ultimately be skewed towards the conditions of higher
+ frequency of occurrence.
+\end_layout
+
+\begin_layout Section
+Results
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename figures/fig_MIZ_median_panels.png
+	lyxscale 50
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Overview of the variability indicator highlighting the MIZ extent (NASA/NSIDC
+ CDR, 1987-2019).
+ (a) Median of the monthly standard deviation of sea-ice concentration daily
+ anomaly (
+\begin_inset Formula $\sigma_{SIA}$
+\end_inset
+
+).
+ The pixels with SIC=0 have been excluded from the analysis of the distributions.
+ The circles indicate the locations shown in panel c.
+ (b) Histogram of the median values from the map shown in panel a.
+ (c) Box-and-whisker plots of the indicator 
+\begin_inset Formula $\sigma_{SIA}$
+\end_inset
+
+ distribution from the locations shown in panel a.
+ The three subjective latitudes correspond to different values of the median
+ (shown in brackets) along each selected longitude, roughly located in the
+ traditional sectors of the Southern Ocean.
+ The Amundsen-Bellingshausen Sea (not shown) is similar to longitude 120°E.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Discussion and conclusions
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+btprint "btPrintCited"
+bibfiles "C:/Users/marce/Documents/Zotero/My Library"
+options "copernicus"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
