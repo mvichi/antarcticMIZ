@@ -142,13 +142,14 @@ This feature is found in the Arctic only in the Bering Sea and in the Greenland
 \end_layout
 
 \begin_layout Standard
-Sea ice concentration (SIC) is measured at the Earth observation scale through
- the use of satellites equipped with passive microwaves (PM) sensors.
+Sea-ice concentration (SIC), the fraction of ice-covered water, is measured
+ at the Earth observation scale through the use of satellites equipped with
+ passive microwaves (PM) sensors.
  Operationally, the MIZ is defined as that region of the sea ice where SIC
  is comprised between 15 and 80% 
 \begin_inset CommandInset citation
 LatexCommand citep
-key "strongArcticMarginalIce2013,stroeveMappingAssessingVariability2016"
+key "comisoConcentrationGradientsGrowth1984,meierComparisonSeaiceExtent2008,strongArcticMarginalIce2013,stroeveMappingAssessingVariability2016"
 literal "false"
 
 \end_inset
@@ -156,10 +157,18 @@ literal "false"
 .
  This definition is tightly linked to the SIC retrieval from satellite radiometr
 y, since the limit of 15% is considered to be a viable rule-of-thumb to
- counter the uncertainties in the methodology.
+ overcome the uncertainties in the methodology.
  Within this range, sea ice is assumed to be in open pack ice conditions,
  with higher chances of drifting ice and the penetration of gravity waves
- due to the floes being smaller than the wave length.
+ due to the floes being smaller than the wave length 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "squireOceanWaveInteractions2020"
+literal "false"
+
+\end_inset
+
+.
  This definition is operationally viable at the monthly scale in the Antarctic.
  Assuming that the sea-ice edge is traversing a region of open ocean in
  one month, this area is likely to be classified as MIZ, since it will have
@@ -192,7 +201,8 @@ Remote sensing data
 \end_layout
 
 \begin_layout Standard
-Brief description of the Climate Data Records from NASA/NSIDC 
+The analysis was carried out using SIC data from the sea ice Climate Data
+ Records (CDR) from NOAA/NSIDC 
 \begin_inset CommandInset citation
 LatexCommand citep
 key "pengLongtermReproduciblePassive2013,meierNOAANSIDCClimate2017"
@@ -200,8 +210,51 @@ literal "false"
 
 \end_inset
 
- and ESA.
- The data cover the period 1979-2015 and 1987-2019
+ and from the EUMETSAT OSI SAF (OSI-450) product 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "lavergneVersionEUMETSATOSI2019"
+literal "false"
+
+\end_inset
+
+.
+ The former contains two main data sets: the official CDR from July 1987
+ to December 2019, which follows all the CDR standards for traceability
+ and reproducibility, and the Goddard merged product, which includes additional
+ manual corrections and spatial/temporal interpolations to fill data gaps
+ (extending the period back to January 1979).
+ These products are very similar in terms of the longer-term properties
+ 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "pengLongtermReproduciblePassive2013"
+literal "false"
+
+\end_inset
+
+ but differ in the individual daily maps.
+ The OSI-450 product is a gap-less, level 4 product, similar to the Goddard
+ merged product (hereinafter NOAA/NSIDC GM).
+ It extends from January 1979 through to December 2015.
+ The data processing introduced an open-water filter aimed at removing weather-i
+nduced false ice over open water, which unfortunately may remove some true
+ low-concentration ice in the MIZ 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "lavergneVersionEUMETSATOSI2019"
+literal "false"
+
+\end_inset
+
+.
+ For the purpose of this analysis, which focuses on daily variability in
+ the MIZ, the NOAA/NSIDC CDR is preferable since it introduces less smoothing
+ and aliasing, as well as it ensures continuity with future releases of
+ the data set.
+ The results will be discussed against all the available data sets and the
+ corresponding figures for the NOAA/NSIDC GM and OSI-450 CDR are available
+ in the supplementary material.
 \end_layout
 
 \begin_layout Subsection
@@ -209,18 +262,19 @@ Statistical analysis
 \end_layout
 
 \begin_layout Standard
-The methodology treats the variability of satellite-retrieved SIC from the
- MIZ as if it was noise, a perturbation around an expected value.
- SIC is treated as the fraction between 0 and 1 in all computations and
+The methodology treats the variability of remote-sensed SIC as if it was
+ noise, a perturbation around an expected value.
+ SIC is expressed as the fraction between 0 and 1 in all computations and
  figures.
  Regions of closed pack ice, or of ice-free ocean outside the seasonal ice
  zone are more likely to experience small variations around a long-term
  mean value of the SIC (close to 1 in the former case and to 0 in the latter).
- Multi-year ice and permanently ice-free ocean will have no noise, hence
- negligible dispersion around the climatological mean.
- The standard deviation of the daily SIC anomaly can thus be used to measure
- the degree of variance in sea-ice conditions experienced by a certain pixel
- over a month.
+ Persistent conditions of multi-year ice and permanently ice-free ocean
+ will have less noise, hence a negligible dispersion around the climatological
+ mean.
+ The standard deviation of the daily SIC anomaly with respect to a chosen
+ reference value can thus be used to measure the degree of variance in sea-ice
+ conditions experienced by a certain pixel over a month.
  
 \end_layout
 
@@ -237,7 +291,7 @@ The daily SIC anomaly
  daily SIC from the monthly climatology.
  Since the variable SIC is constrained between 0 and 1, so is the anomaly.
  The standard deviation of the daily anomaly is then computed for each month,
- to measure the spread around the climatological SIC monthly mean
+ to measure the spread around the climatological SIC monthly mean as follows:
 \begin_inset Formula 
 \[
 \sigma_{SIA}^{m}=\sqrt{\frac{1}{N-1}\sum_{i=1}^{N}\left(a_{i}^{m}\right)^{2}}.
@@ -253,33 +307,67 @@ The index
 \begin_inset Formula $m$
 \end_inset
 
- runs over the total number of months.
+ runs over the total number of months in the time series.
  The standard deviation is effectively a sum of squares, since the mean
  of the anomalies is null.
  The climatological monthly standard deviation has also been computed by
  pooling together all the daily anomalies for every month in different years.
- The indicator 
+ The variable 
 \begin_inset Formula $\sigma_{SIA}^{m}$
 \end_inset
 
- describes a left bounded distribution, where the value 0 indicates lack
+, hereinafter referred to as 
+\begin_inset Quotes eld
+\end_inset
+
+the indicator
+\begin_inset Quotes erd
+\end_inset
+
+, describes a left bounded distribution, where the value 0 indicates lack
  of SIC variability over the month, and the maximum expected value is 0.5.
- The exclusion of the 0-values will thus return an unbiased distribution,
- that can be characterised through the median.
+ The exclusion of the zeroes will return an unbiased distribution of SIC
+ variability, that can be characterised through the median.
  Values larger than the median are more likely to be indicative of variable
  SIC during the month.
- It should be noted that this analysis does not objectively discriminate
+ It should be noted that this analysis deliberately does not discriminate
  between a region that is experiencing a seasonal transition of the MIZ
- band or a persistence of conditions typical of the MIZ.
- However, since the anomaly is computed over the same number of days, it
- is more likely that a rapid transition between new, young and first-year
- ice would result in a lower value of the indicator.
+ band during sea-ice advance or a persistence of short-term variable conditions
+ typical of the MIZ.
+ This is the main reason for using the daily anomaly against the monthly
+ climatology instead of the daily climatology (based on daily values or
+ daily running means over a monthly time window).
+ Such a climatology would include a smooth daily transition during the advance
+ and retreat phase, which would reduce the variance of the signal.
+\end_layout
+
+\begin_layout Standard
+Since the anomaly is computed roughly over the same number of days for each
+ pixel (excluding the random missing data), it is more likely that a rapid
+ transition between new, young and first-year ice would result in a lower
+ value of the indicator.
  The median would ultimately be skewed towards the conditions of higher
  frequency of occurrence.
 \end_layout
 
-\begin_layout Section
-Results
+\begin_layout Standard
+I will discuss this choice further in Sec.
+ 4.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Assess the sensitivity to the choice of the median threshold.
+ A value of 0.1 results in the summer season being considered MIZ, apart
+ from the regions of multi-year ice in the Weddell Sea
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -289,10 +377,61 @@ sideways false
 status open
 
 \begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Empirical probability and cumulative density functions of the 
+\begin_inset Formula $\sigma_{SIA}$
+\end_inset
+
+ indicator
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
 \align center
 \begin_inset Graphics
 	filename figures/fig_MIZ_median_panels.png
-	lyxscale 50
+	lyxscale 40
 	width 100text%
 
 \end_inset
@@ -304,7 +443,13 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Overview of the variability indicator highlighting the MIZ extent (NASA/NSIDC
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:sigmaSIA_overview"
+
+\end_inset
+
+Overview of the variability indicator highlighting the MIZ extent (NOAA/NSIDC
  CDR, 1987-2019).
  (a) Median of the monthly standard deviation of sea-ice concentration daily
  anomaly (
@@ -312,17 +457,20 @@ Overview of the variability indicator highlighting the MIZ extent (NASA/NSIDC
 \end_inset
 
 ).
- The pixels with SIC=0 have been excluded from the analysis of the distributions.
+ The pixels with SIC=0 have been excluded from the analysis of the distribution.
  The circles indicate the locations shown in panel c.
- (b) Histogram of the median values from the map shown in panel a.
- (c) Box-and-whisker plots of the indicator 
+ (b) Empirical probability and cumulative density functions of the median
+ values from the map shown in panel a (PDF: black line and CDF: blue line).
+ (c) Box-and-whisker plots of the 
 \begin_inset Formula $\sigma_{SIA}$
 \end_inset
 
- distribution from the locations shown in panel a.
+ distribution extracted at the locations shown in panel a.
  The three subjective latitudes correspond to different values of the median
- (shown in brackets) along each selected longitude, roughly located in the
- traditional sectors of the Southern Ocean.
+ along each selected longitude (orange line, the value is shown in brackets
+ besides the latitude).
+ The sections are roughly located in the traditional sectors of the Southern
+ Ocean.
  The Amundsen-Bellingshausen Sea (not shown) is similar to longitude 120°E.
 \end_layout
 
@@ -337,7 +485,212 @@ Overview of the variability indicator highlighting the MIZ extent (NASA/NSIDC
 \end_layout
 
 \begin_layout Section
-Discussion and conclusions
+Results
+\end_layout
+
+\begin_layout Standard
+The median of the indicator computed for each pixel will be presented first
+ in Fig.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:sigmaSIA_overview"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, since the interest is in identifying the mean conditions that correspond
+ to MIZ.
+ The regions characterised by higher 
+\begin_inset Formula $\sigma_{SIA}$
+\end_inset
+
+ medians are found in the outer part of the sea ice as expected.
+ They are distributed zonally in a homogeneous way, with a few peaks in
+ the Bellingshausen, Eastern Weddell Sea (13E) and Ross Sea (150W) regions,
+ located close to areas of interruptions of the zonal belt.
+ Another area of high median is associated to the coastal polynyas.
+ These are known regions, in which the SIC is recognised to be more variable
+ and usually between the standard thresholds.
+ A greater halo of variability is observed in the Atlantic sector, extending
+ to about 55S.
+\end_layout
+
+\begin_layout Standard
+The median distribution is bimodal and constrained below 0.3.
+ The first peak is larger and centred around 0.05 and the second one is above
+ 0.15, with a trough between 0.1 and 0.15.
+ 
+\end_layout
+
+\begin_layout Standard
+The 75th percentiles of the overall distribution of 
+\begin_inset Formula $\sigma_{SIA}$
+\end_inset
+
+ is 0.17 (supp fig).
+ This points towards values in the range of 0.15 to 0.17 can be identified
+ as having MIZ features.
+\end_layout
+
+\begin_layout Standard
+The same analysis done on the NOAA/NSIDC GM data set shows similar features,
+ with a much cleaner map, as expected that does not include the large halo
+ of variability in the open ocean region, but also introduces a smooting
+ in the distribution, 
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Section
+Discussion and conclusion
+\end_layout
+
+\begin_layout Standard
+La regione marginale in Antartico e' caratterizzata da variabilita' di tipologia
+ di ghiaccio, che in qualche maniera viene registrato dalle variazioni di
+ concentrazione.
+ The conventional method uses a concentration threshold method to identify
+ regions of sea-ice cover between 15 and 80%.
+ Due to the seasonal advancement and retreat of sea ice, the use of SIC
+ monthly means allow to record some variability, which is then reflected
+ in the overall count of pixels that can be attributed to be part of the
+ MIZ 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "strongArcticMarginalIce2013,stroeveMappingAssessingVariability2016"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+However, absolute thresholds do not tell the whole story of the MIZ seasonal
+ cycle, and especially they do not reflect a direct measure of variability,
+ which is the ultimate feature of the MIZ.
+ The proposed method allows to identify regions of higher variability and
+ to quantify the climatological relative intensity.
+ It gives a quantitative measure of the probability to exceed a given level
+ of variation in SIC, which is obtained by computing an indicator: the standard
+ deviation of the daily anomaly on a monthly basis.
+ This indicator can be translated into maps of exceedance probability, hence
+ giving a quantitative description of the MIZ characteristics, and not just
+ a classification mask.
+\end_layout
+
+\begin_layout Standard
+The method does not use subjective thresholds, because the separation between
+ pixels of low and high variability is obtained through a distributional
+ analysis of the indicator values, which reveals a bimodal pattern.
+ The percentage of exceeding a given threshold depends on the chosen value
+ of the indicator, but it does not modify the relative pattern between regions.
+\end_layout
+
+\begin_layout Standard
+The use of a threshold-based MIZ definition leads to an underestimation
+ of the ocean area that can possibly be covered by sea ice in the various
+ seasons.
+ In terms of the seasonal climatology, the MIZ area obtained through the
+ use of a fixed threshold is underestimated in winter, and far below the
+ summer area.
+\end_layout
+
+\begin_layout Standard
+This may seem paradoxical, because the region classified as MIZ cannot be
+ larger than the sea-ice extent.
+ This is an artifact of the use of climatological means and the 15% baseline,
+ which skew the distribution towards the low values, disregarding the natural
+ large variability of sea ice.
+ It is thus not surprising that identification of the ice edge is not carried
+ out during summertime, because of the fragmentation of the ice surface.
+\end_layout
+
+\begin_layout Standard
+The use daily of anomalies computed against the climatological monthly mean
+ is justified by the 
+\end_layout
+
+\begin_layout Standard
+calcolare l'anomalia giornaliera sulla media mensile climatologica e' la
+ misura che serve.
+ Lo scopo e' identificare regioni che sono influenzate 1) da variazioni
+ interannuali (e qui si dovrebbe esere l'anomalia daily) ma anche 2) dalla
+ transizione stagionale del ghiaccio (il progressivo congelamento) e 3)
+ che hanno variabilita' dentro al mese (il ghiaccio e' piu' o meno compatto
+ ma oscilla).
+ Tutte questi tre criteri sono tipici della zona marginale.
+ Il punto 2) e' tipico ovunque, e quindi mi genera il rumore stagionale
+ di fondo che voglio tenere.
+\end_layout
+
+\begin_layout Standard
+It is independent of the algorithm and sensors, and less sensitive to the
+ uncertainties of the brightness temperature retrieval.
+ As long as each product is consistent and not affected by intrinsic biases,
+ the proposed analysis will map relative differences between ice types,
+ even if the specific ice type cannot be classified.
+\end_layout
+
+\begin_layout Standard
+These results have several applications.
+ From an operational view point, these maps can be used to plan scientific
+ and logistical activities in seasonally ice-covered Southern Ocean waters.
+ Used in conjunction with SIC climatologies, they can 
+\end_layout
+
+\begin_layout Standard
+Due to its construction, the method should be mostly applied in climatological
+ or medium to long-term investigations of ice variability.
+ It may also be used in operational context, for instance comparing each
+ daily anomaly against the long term distribution of anomalies in a particular
+ region.
+ This has not however been verified in this analysis and would deserve dedicated
+ work.
+\end_layout
+
+\begin_layout Standard
+It incidentally measure the presence of pack ice conditions, although this
+ is by contrasting re
+\end_layout
+
+\begin_layout Standard
+Finally, the possibility to see patterns of intensity within the region
+ classified as MIZ, would allow to identify further linkages with the atmospheri
+c boundary layer, as for instance the role played by polar cyclones in shaping
+ the character of Antarctic sea ice.
+\end_layout
+
+\begin_layout Section*
+Data availability
+\end_layout
+
+\begin_layout Standard
+The EUMETSAT OSI-450 CDR product is freely available at 
+\begin_inset CommandInset href
+LatexCommand href
+name " https://doi.org/10.15770/EUM_SAF_OSI_0008"
+target " https://doi.org/10.15770/EUM_SAF_OSI_0008"
+literal "false"
+
+\end_inset
+
+ and the NOAA/NSIDC Climate Data Record of Passive Microwave Sea Ice Concentrati
+on, Version 3 can be downloaded from 
+\begin_inset CommandInset href
+LatexCommand href
+name " https://doi.org/10.7265/N59P2ZTG"
+target " https://doi.org/10.7265/N59P2ZTG"
+literal "false"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
