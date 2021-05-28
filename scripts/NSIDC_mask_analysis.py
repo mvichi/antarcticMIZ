@@ -31,10 +31,13 @@ def ll2grid(lon,lat,lona,lata):
     d = dist.values
     return np.unravel_index(np.argmin(d, axis=None), d.shape)
 
-#%% 
+# get the months name
+months = calendar.month_name[1:]
+#months = calendar.month_abbr[1:]
+#%% Compute the mask and the areal extent from
 DIR='/mnt/d/SEAICE/NSIDC-G02202_V3/south/'
-df=DIR+'NSIDC_cdr_m_sigmaSIA.nc'
-ds=xr.open_dataset(df)
+dfile=DIR+'NSIDC_cdr_m_sigmaSIA.nc'
+ds=xr.open_dataset(dfile)
 miz01=ds.sigmaSIA.where(ds.sigmaSIA>=0.1)
 miz01=miz01/miz01
 miz01ext=miz01.sum(dim=['xgrid','ygrid'])*25.*25./1.e6
@@ -45,11 +48,20 @@ miz017=ds.sigmaSIA.where(ds.sigmaSIA>=0.17)
 miz017=miz017/miz017
 miz017ext=miz017.sum(dim=['xgrid','ygrid'])*25.*25./1.e6
 
+#%%
 plt.figure()
 miz01ext.plot(label='0.10')
 miz015ext.plot(label='0.15')
 miz017ext.plot(label='0.17')
+plt.legend()
 
+#%%
+plt.figure()
+for i in [6,7,8]:
+    miz015ext.sel(time=miz015ext.time.dt.month.isin([i])).plot(
+        label=months[i-1],marker='o')
+plt.legend()
+plt.grid(axis='x')
 #%%
 DIR='/mnt/d/SEAICE/NSIDC-G02202_V3/south/'
 df=DIR+'seaice_conc_mon_sh_1978_2019_v03r01.nc'
@@ -79,9 +91,7 @@ miz=CDRmiz.sum(dim=['xgrid','ygrid'])*25.*25./1.e6
 data_crs = ccrs.Stereographic(-90, 0)
 # The projection keyword determines how the plot will look
 map_proj = ccrs.SouthPolarStereo()
-# get the months name
-months = calendar.month_name[1:]
-#months = calendar.month_abbr[1:]
+
 
 DIR='/mnt/d/SEAICE/NSIDC-G02202_V3/south/'
 df=DIR+'NSIDC_cdr_clim_m_maskMIZ.nc'
