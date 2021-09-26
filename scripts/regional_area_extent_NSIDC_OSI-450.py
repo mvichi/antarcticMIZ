@@ -110,9 +110,9 @@ for p in range(4):
     ax.set_xlabel('')
 f.suptitle(theReg)
 
-#%% climatological SIE NSIDC
+#%% climatological SIE NSIDC: issues with the methodology
 DIR='/mnt/d/SEAICE/NSIDC-G02202_V3/south/'
-df=DIR+'seaice_conc_mon_sh_1978_29_v03r.nc'
+df=DIR+'seaice_conc_mon_sh_1978_2019_v03r01.nc'
 ds=xr.open_dataset(df)
 
 
@@ -123,7 +123,7 @@ GMsieclim=sie.groupby('time.month').mean(skipna=True)
 #GMsieclim_std=sie.groupby('time.month').std()
 
 # Method 1
-da=ds.seaice_conc_cdr.sel(time=slice('1988','2019')).groupby('time.month').mean()
+da=ds.seaice_conc_cdr.sel(time=slice('1988','2019')).groupby('time.month').mean(skipna=True)
 sieclim=da.where(da>=0.15)
 sieclim=sieclim/sieclim
 sieclim=sieclim.sum(dim=['xgrid','ygrid'])*AREA
@@ -134,6 +134,16 @@ sie=sie.sum(dim=['xgrid','ygrid'])*AREA
 CDRsieclim=sie.groupby('time.month').mean(skipna=True)
 #CDRsieclim_std=sie.groupby('time.month').std()
 
+sieclim.plot(label='mean+extent')
+CDRsieclim.plot(label='extent+mean')
+plt.ylabel('Million km$^2$')
+plt.legend()
+plt.grid()
+plt.figure()
+d=sieclim-CDRsieclim
+d.plot()
+plt.ylabel('Million km$^2$')
+#%%
 sic=ds.seaice_conc_cdr.sel(time='2017').where(ds.seaice_conc_cdr>=0.15)
 sie=sic/sic
 sie=sie.sum(dim=['xgrid','ygrid'])*AREA

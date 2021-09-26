@@ -165,3 +165,30 @@ s=packNText.groupby('time.month').std()
 plt.plot(x,m,'-',color='C2')
 plt.fill_between(x,m+s,m-s,color='C2',alpha=0.2,label='_')
 plt.title('Threshold = '+str(TH))
+
+#%% Extent based on climatologies
+DIR='/mnt/d/SEAICE/NSIDC-G02202_V3/south/'
+ds=xr.open_dataset(DIR+'NSIDC_cdr_clim_m_maskMIZ.nc')
+maskMIZ=ds.maskMIZ
+mizext=maskMIZ.sum(dim=['xgrid','ygrid'])*AREA
+
+dfile=DIR+'NSIDC_cdr_clim_m_extent.nc'
+ds=xr.open_dataset(dfile)
+maskSIC=ds.extent
+extent=maskSIC.sum(dim=['xgrid','ygrid'])*AREA
+
+DIR='/mnt/d/SEAICE/NSIDC-G02202_V3/south/'
+dfile=DIR+'seaice_conc_monclim_sh_1978_2019_v03r01.nc'
+ds=xr.open_dataset(dfile)
+sicMIZ=ds.seaice_conc_cdr.where((ds.seaice_conc_cdr>=0.15)&(ds.seaice_conc_cdr<0.8))
+sicMIZ=sicMIZ/sicMIZ
+sicext=sicMIZ.sum(dim=['xgrid','ygrid'])*AREA
+#%% Figure
+x = range(1,13)
+plt.figure()
+plt.plot(x,mizext,'k-o',label='MIZ SIE ($\sigma_{SIA}$)')
+plt.plot(x,sicext,'k-x',label='MIZ SIE (SIC range)')
+plt.plot(x,extent,'k--',label='Total SIE')
+plt.xticks(x,labels=calendar.month_abbr[1:])
+plt.ylabel('Million km$^2$')
+plt.legend()
