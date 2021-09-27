@@ -191,7 +191,7 @@ dfile=DIR+'seaice_conc_dayanomstd_sh_1978_2019_v03r01.nc'
 ds=xr.open_dataset(dfile)
 GMclim = ds.goddard_merged_seaice_conc.where(ds.goddard_merged_seaice_conc>0.)
 
-#%% Plot the climatological sigmaSIA for each month
+#%% Figure 3. Plot the climatological sigmaSIA for each month
 # the plotted variable "field" is set here
 field = sigmaSIAclim
 label = 'Climatological $\sigma_{SIA}$ NOAA/NSIDC CDR [-]'
@@ -239,6 +239,9 @@ for m in range(12):
     ax.set_title(months[m])
 #plt.tight_layout()
 
+#%% ADDITIONAL PLOTS
+# not used in the manuscript
+
 #%% Plot sigmaSIA for a given year
 # This is the data projection, that is their original coordinates
 data_crs = ccrs.Stereographic(-90, 0)
@@ -247,13 +250,13 @@ map_proj = ccrs.SouthPolarStereo()
 # get the months name
 months = calendar.month_name[1:]
 #months = calendar.month_abbr[1:]
-year='2019'
+year='2014'
 field=sigmaSIA.sel(time=year)
-cmap=plt.cm.get_cmap('cmo.matter', 6)
+cmap=plt.cm.get_cmap('cmo.matter', 10)
 p = field.plot(figsize=(8.5,9.5),transform=data_crs,  # the data's projection
              col='time', col_wrap=3,  # multiplot settings
              aspect=len(field.xgrid) / len(field.ygrid),  # for a sensible figsize
-             cmap=cmap, vmin=0, vmax=0.3,
+             cmap=cmap, vmin=0, vmax=0.5,
              subplot_kws={'projection': map_proj},
              cbar_kwargs={'shrink':0.8,'pad':0.05,'fraction':0.1,'aspect':25,
                 'label': '$\sigma_{SIA}$ NOAA/NSIDC CDR [-]'})
@@ -286,4 +289,4 @@ for i,ax in enumerate(p.axes.flat):
     ax.gridlines()
     ax.coastlines()
     ax.set_extent([-180, 180, -90, -52], ccrs.PlateCarree())
-    ax.set_title(str(field.time.dt.year.values[i]))
+    ax.set_title('November '+str(field.time.dt.year.values[i]))

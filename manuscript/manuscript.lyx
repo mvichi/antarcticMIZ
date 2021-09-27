@@ -33,7 +33,7 @@
 \bibtex_command bibtex
 \index_command default
 \paperfontsize default
-\spacing single
+\spacing onehalf
 \use_hyperref false
 \papersize a4paper
 \use_geometry true
@@ -568,7 +568,7 @@ where the index
  to measure the spread around the climatological SIC monthly mean as follows:
 \begin_inset Formula 
 \begin{equation}
-\sigma_{SIA}^{m}=\sqrt{\frac{1}{N-1}\sum_{i=1}^{N}\left(a_{i}^{m}\right)^{2}},
+\sigma_{SIA}^{m}=\sqrt{\frac{1}{N}\sum_{i=1}^{N}\left(a_{i}^{m}\right)^{2}},
 \end{equation}
 
 \end_inset
@@ -580,12 +580,28 @@ where
  is the total number of days in the month.
  The standard deviation is effectively a sum of squares, since the mean
  of the anomalies is null.
- The climatological monthly standard deviation 
+ The climatological monthly standard deviation of the anomalies 
 \begin_inset Formula $\left(\overline{\sigma}_{SIA}^{n}\right)$
 \end_inset
 
  has also been computed by pooling together all the daily anomalies from
- the same month in different years.
+ the same month in different years
+\begin_inset Formula 
+\begin{equation}
+\bar{\sigma}_{SIA}^{n}=\sqrt{\frac{1}{N}\sum_{j=1}^{N\times Y}\left(a_{j}^{n}\right)^{2}},\label{eq:sigmasia_clim}
+\end{equation}
+
+\end_inset
+
+with 
+\begin_inset Formula $Y$
+\end_inset
+
+ is the number of years, and the index 
+\begin_inset Formula $j$
+\end_inset
+
+ runs over the number of days of the Januaries, Februaries, etc.
  The variable 
 \begin_inset Formula $\sigma_{SIA}^{m}$
 \end_inset
@@ -598,8 +614,17 @@ the indicator
 \begin_inset Quotes erd
 \end_inset
 
-, describes a left bounded distribution, where the value 0 indicates lack
- of SIC variability over the month and the maximum expected value is 0.5.
+ 
+\begin_inset Formula $\sigma_{SIA}$
+\end_inset
+
+ with the index 
+\begin_inset Formula $m$
+\end_inset
+
+ dropped, describes a left bounded distribution, where the value 0 indicates
+ lack of SIC variability over the month and the maximum expected value is
+ 0.5.
  The exclusion of the zeroes represents an unbiased distribution of SIC
  variability.
  
@@ -630,7 +655,7 @@ stics of the MIZ.
 
 \begin_layout Standard
 The indicator is used to estimate the chances of encountering variable MIZ
- conditions at each pixel in a climatological sense.
+ conditions at each pixel on a monthly climatological time scale.
  The probability of an ocean region being affected by MIZ conditions during
  a given month has been computed using the empirical exceedance (which is
  equivalent to 1 - CDF, the cumulative density function, when the function
@@ -651,8 +676,9 @@ where
 \end_inset
 
  values.
- Given a certain threshold of the indicator that corresponds to MIZ conditions,
- this function gives an estimate of the probability to exceed that value.
+ Given a certain threshold of the indicator that is known to correspond
+ to MIZ conditions, this function gives an estimate of the probability to
+ exceed that value based on the records.
 \end_layout
 
 \begin_layout Standard
@@ -694,8 +720,8 @@ name "fig:PDF-CDF"
 
 \end_inset
 
-Empirical probability (black stepline) and cumulative (blue line) density
- functions of the 
+Empirical probability (black line) and cumulative (blue line) density functions
+ of the 
 \begin_inset Formula $\sigma_{SIA}$
 \end_inset
 
@@ -745,7 +771,7 @@ Overview of the variability indicator highlighting the MIZ extent (NOAA/NSIDC
  CDR, 1987-2019).
  (a) Median of the monthly standard deviation of sea-ice concentration daily
  anomaly (
-\begin_inset Formula $\sigma_{SIA}^{m}$
+\begin_inset Formula $\sigma_{SIA}$
 \end_inset
 
 ), plotted on a stereographic projection.
@@ -781,7 +807,7 @@ Results
 \end_layout
 
 \begin_layout Subsection
-An indicator for sea-ice inter-annual variability
+An indicator of climatological and inter-annual variability for the MIZ
 \begin_inset CommandInset label
 LatexCommand label
 name "subsec:Indicator-variability"
@@ -810,11 +836,11 @@ noprefix "false"
 ).
  The cumulative density function is a power law, which can be fitted very
  well with the Pareto function (p-value of the Kolmogorov-Smirnov test virtually
- zero), although it shows a change in curvature for values above 0.1, which
+ zero; the test had to be run on sub-samples for computational reasons).The
+ empirical function shows a change in curvature for values above 0.1, which
  could be indicative of the superposition of two distributions.
  The sample contains more than 8 million values, which would unlikely explain
- the discontinuity between 0.1 and 0.2 as an under-sampling issue (the K-S
- test had to be run on sub-samples for computational reasons).
+ the discontinuity between 0.1 and 0.2 as an under-sampling issue.
  
 \begin_inset Note Note
 status open
@@ -844,34 +870,47 @@ noprefix "false"
 
 \end_inset
 
-).
- In a Pareto distribution the median is biased towards the lower values,
+a).
+ In a Pareto distribution, the median is biased towards the lower values,
  hence it is a conservative estimator.
  Higher values of the 
 \begin_inset Formula $\sigma_{SIA}$
 \end_inset
 
- median will be indicative of larger departures from the long-term mean
- conditions, when sea ice is present in the region.
+ median are indicative of large departures from the long-term mean conditions
+ (when sea ice is present in the region).
  These highly variable regions are found in the outer part of the sea ice
  as expected.
- They are distributed zonally in a homogeneous way, with a few peaks in
- the Bellingshausen, Eastern Weddell Sea (13°E) and Ross Sea (150°W) regions,
- located close to areas of interruptions of the zonal belt.
+ They are distributed zonally in a rather homogeneous way, with a few peaks
+ in the Bellingshausen, Eastern Weddell Sea (13°E) and Ross Sea (150°W)
+ regions, located close to areas of interruptions of the zonal belt.
  Another area of high median is associated to coastal polynyas.
  These are known regions, in which the SIC is recognised to be more variable
  and usually less consolidated.
  A greater halo of variability is observed in the Atlantic sector, extending
  to about 55°S.
- This halo is removed when the analysis is run on the higher level products,
- which are gap-less and/or filtered (supplementary).
+ This halo is removed when the analysis is run on the higher level products
+ such as the NOAA/NSIDC GM and OSIS-450, which are gap-less and/or filtered
+ (Fig.
+ S1 and S2 in the supplementary material).
  
 \end_layout
 
 \begin_layout Standard
-The median distribution confirms the presence of different processes underlying
- the variability in Antarctic sea ice that was hinted at when analysing
- the overall distribution in Fig.
+The median distribution shown in Fig.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:sigmaSIA_overview"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+b confirms the presence of different processes underlying the variability
+ in Antarctic sea ice, which was hinted at when analysing the overall distributi
+on in Fig.
  
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -887,22 +926,11 @@ noprefix "false"
 \begin_inset Formula $\sigma_{SIA}$
 \end_inset
 
- median distribution (Fig.
- 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:sigmaSIA_overview"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-b) is more normal and bimodal, also constrained below 0.3 (0.2 is the 99th
- percentile).
+ median distribution is more normal and bimodal, also constrained below
+ 0.3 (0.2 is the 99th percentile).
  The first peak is larger and centred around 0.05 and the second one is above
  0.15, with a trough between 0.1 and 0.15.
- The change of slope in the empirical CDF is more evident here and correspond
+ The change of slope in the empirical CDF is more evident here and corresponds
  to the range of values where the two distributions intersect.
  By combining the spatial map with the distribution of the median, it appears
  evident that values between 0.1 and 0.15 indicate mixed regions were consolidated
@@ -910,7 +938,7 @@ b) is more normal and bimodal, also constrained below 0.3 (0.2 is the 99th
  the ice margin, and values above 0.15 can be clearly identified as having
  MIZ-like features.
  In the following, I will use a threshold of 0.1 and will discuss the implication
- of this choice.
+ of this choice in the discussion.
  Note that this analysis does not differentiate regions of high variation
  based on the distance from the continent, as for instance done in 
 \begin_inset CommandInset citation
@@ -924,16 +952,18 @@ literal "false"
  MIZ-like conditions can also be found in the interior of the sea ice, as
  it will be shown in the next section.
  The same analysis done on the NOAA/NSIDC GM and OSI-450 data sets shows
- similar features (supplementary), with much cleaner maps at the margin
- with the open ocean.
- However, the filtering introduces a smoothing in the distribution of the
- median.
+ similar features (Fig.
+ S1 and S2 in the supplementary material), although the heavier filtering
+ and gap-filling used in OSI-450 introduces a smoothing in the distribution
+ of the median that flattens the second peak and removes much of the variability
+ in the MIZ (Fig.
+ S2, bottom panel).
 \end_layout
 
 \begin_layout Standard
-This average perspective may however mask the inherent possibility for extreme
+This average perspective may however mask the possibility of detecting extreme
  changes in regions that are typically characterised by one type of ice.
- As shown in Fig.
+ Fig.
  
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -944,7 +974,8 @@ noprefix "false"
 
 \end_inset
 
-c, the median and the interquartile ranges decrease moving southward along
+c shows the complete distributions from selected points.
+ The median and the interquartile ranges decrease moving southward along
  sections marking the standard Antarctic sectors, but in general the outliers
  become more evident.
  Regions of intermediate ice variability, as for instance the Weddell Sea
@@ -953,11 +984,22 @@ c, the median and the interquartile ranges decrease moving southward along
  The median variability is low, but there are high chances of the SIC being
  different from year to year in a given month.
  In Eastern Antarctica (120°E), where the sea-ice extent is narrower, it
- is hard to distinguish the existence of more persistent pack ice conditions.
+ is hard to distinguish the presence of more persistent pack ice conditions.
  The median is high, close to 0.1 and above, with more symmetric distributions.
- The Ross Sea, is more similar to the Western Weddell Sea, with sporadic
- extreme values indicating departures from the typical ice conditions in
- the internal regions.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+add in the discussion that East Antarctica can be classified as a permanent
+ MIZ
+\end_layout
+
+\end_inset
+
+The Ross Sea, is more similar to the Western Weddell Sea, with sporadic
+ extreme values indicating departures from the typical ice conditions found
+ in the internal pack ice regions.
  However, this sector has a narrower MIZ in the outer region and the internal
  pack ice is less variable than the ice closer to the continent, which is
  instead affected by the variations due to the coastal polynyas.
@@ -977,7 +1019,7 @@ open-ocean
 status open
 
 \begin_layout Plain Layout
-From Massom et al., 2013.
+In discussion: From Massom et al., 2013.
  These translate to considerable zonally-broad though latitudinally-narrow
  zones and local to regional-scale “hot spots” of high variability in ice
  season duration (Figure 5C).
@@ -993,6 +1035,88 @@ From Massom et al., 2013.
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+This method is designed to highlight regions where ice features based on
+ SIC estimates are more variable between the years.
+ The NOAA/NSIDC CDR climatological 
+\begin_inset Formula $\overline{\sigma}_{SIA}^{n}$
+\end_inset
+
+ is shown in Fig.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Climatological-median"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ as a reference example of the intensity of the SIC variability in the Southern
+ Ocean.
+ The NOAA/NSIDC GM and OSI-450 are substantially equivalent but with less
+ noise associated to values lower than 0.1 in the open ocean region (see
+ Fig.
+ S3 and S4 in the supplementary material).
+ The OSI-450 product also leads to slightly smaller values of the 
+\begin_inset Formula $\sigma_{SIA}$
+\end_inset
+
+ climatology at the ice edge because of the use of a stronger open-ocean
+ filter.
+ The extent of the regions presenting MIZ features increases from November
+ to December in a diffused fashion.
+ Later in the season, they are confined within a band that progresses northward
+ and shrinks at the boundary with the ocean.
+ The higher values and the largest meridional spread are found in April
+ and May in the Weddell and Ross Seas.
+ In June and July, the large expanse of the Eastern Weddell Sea between
+ 15°W and 40°E corresponding to the Atlantic bulge of the sea-ice edge is
+ characterised by large inter-annual SIC variability that extends towards
+ the continent.
+ The value of the indicator can also be appreciated by looking at how it
+ captures the variability corresponding to the Maud Rise polynya.
+ The impact on SIC variability in this area is visible from September throughout
+ November, with the latter characterised by a climatological value above
+ 0.2 over a large expanse of the sea-ice covered region.
+ In November, this region denotes a decrease of the indicator, because the
+ polynya is usually fully developed and the open ocean traits prevail.
+\end_layout
+
+\begin_layout Standard
+The climatological maps are useful to highlight the seasonal features of
+ the MIZ, which will be further analysed in the next section.
+ The indicator is also of value in detecting inter-annual variability in
+ given months.
+ For instance, Fig.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:sigmaSIA_november"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ shows how anomalous November 2016 was with respect to the previous years.
+ The whole Atlantic sector was characterised by extended MIZ conditions
+ not only in the region of the Maud Rise, which persisted until 2019.
+ Similar conditions were previously observed in 2009-10, which was also
+ another period of negative anomalies of sea-ice extent recorded in the
+ Weddell Sea and Indian Ocean regions 
+\begin_inset CommandInset citation
+LatexCommand citep
+after ", see her Fig. 3 and 4"
+key "parkinson40yRecordReveals2019a"
+literal "false"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -1037,7 +1161,24 @@ name "fig:Climatological-median"
 
 \end_inset
 
-Climatological mean
+Climatological values of the indicator 
+\begin_inset Formula $\left(\overline{\sigma}_{SIA}^{n}\right)$
+\end_inset
+
+, computed as the standard deviation of the daily anomalies for each month
+ in the whole time series (see eq.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:sigmasia_clim"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+ 
 \end_layout
 
 \end_inset
@@ -1071,9 +1212,75 @@ centering
 
 
 \begin_inset Graphics
+	filename figures/fig_sigmaSIA_November08-19_NSIDC.png
+	lyxscale 30
+	width 90page%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:sigmaSIA_november"
+
+\end_inset
+
+November maps of the 
+\begin_inset Formula $\sigma_{SIA}$
+\end_inset
+
+ indicator from the NOAA/NSIDC CDR for the years 2008-2019.
+ Note the scale change with respect to Fig.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Climatological-median"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
 	filename figures/fig_MIZ_seasonality.png
 	lyxscale 30
-	width 100text%
+	width 90page%
 
 \end_inset
 
@@ -1141,52 +1348,6 @@ name "subsec:Patterns-seasonal"
 \end_layout
 
 \begin_layout Standard
-This method is designed to highlight regions where ice features based on
- SIC estimates are more variable between the years.
- The NOAA/NSIDC CDR climatological 
-\begin_inset Formula $\overline{\sigma}_{SIA}^{n}$
-\end_inset
-
- is shown in Fig.
- 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:Climatological-median"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- as a reference example of the intensity of the SIC variability in the Southern
- Ocean.
- The NOAA/NSIDC GM and OSI-450 are substantially equivalent but with less
- noise associated to values lower than 0.1 in the open ocean region (see
- the supplementary material).
- The OSI-450 product also leads to slightly smaller values of the 
-\begin_inset Formula $\sigma_{SIA}$
-\end_inset
-
- climatology at the ice edge because of the use of a stronger open-ocean
- filter.
- The extent of the regions presenting MIZ features increases from November
- to December in a diffused fashion.
- Later in the season, they are confined within a band that progresses northward
- and shrinks at the boundary with the ocean.
- The higher values and the largest meridional spread are found in April
- and May in the Weddell and Ross Seas.
- In June and July, the large expanse of the Eastern Weddell Sea between
- 15°W and 40°E corresponding to the Atlantic bulge of the sea-ice edge is
- characterised by large inter-annual SIC variability that extends towards
- the continent.
- The value of the indicator can also be appreciated by looking at how it
- captures the variability corresponding to the Maud Rise polynya.
- The impact on SIC variability in this area is visible from September throughout
- November, with the latter characterised by a climatological value above
- 0.2 over a large expanse of the sea-ice covered region.
- In November, this region denotes a decrease of the indicator, because the
- polynya is usually fully developed and the open ocean traits prevail.
- 
 \begin_inset Note Note
 status open
 
@@ -1210,11 +1371,11 @@ The above analysis remarks that, due to the intrinsic seasonal nature of
 \begin_inset Quotes bld
 \end_inset
 
-extent
+classical
 \begin_inset Quotes brd
 \end_inset
 
- was computed from the monthly indicator 
+ extent was computed from the monthly indicator 
 \begin_inset Formula $\sigma_{SIA}^{m}$
 \end_inset
 
@@ -1259,9 +1420,7 @@ noprefix "false"
 \end_inset
 
 .
- The MIZ area based on the SIC threshold is largely affected by the chosen
- algorithm, which diminishes the reliability of these estimates, as previously
- shown by 
+ As previously shown by 
 \begin_inset CommandInset citation
 LatexCommand citep
 key "stroeveMappingAssessingVariability2016"
@@ -1269,7 +1428,8 @@ literal "false"
 
 \end_inset
 
-.
+, the MIZ area based on the SIC threshold is largely affected by the chosen
+ algorithm, which diminishes the reliability of these estimates.
  In their analysis, the NT algorithm had a higher MIZ area than BT and a
  larger proportion of inner open-water ice and coastal polynyas, which are
  included in this MIZ SIC-based criterion and hence the absolute value shown
@@ -1297,8 +1457,9 @@ noprefix "false"
 
 \end_inset
 
-b led to a seasonal extent that is lower than using the SIC method (supplementar
-y), further indicating that the chosen threshold is a good indicator.
+b led to a seasonal extent that is lower than using the SIC method (Fig.
+ S5 in supplementary material), further indicating that the chosen threshold
+ is more adequate.
 \end_layout
 
 \begin_layout Standard
@@ -1335,6 +1496,17 @@ noprefix "false"
 LatexCommand citep
 key "turner2017"
 literal "false"
+
+\end_inset
+
+, as previously highlighted in Fig.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:sigmaSIA_november"
+plural "false"
+caps "false"
+noprefix "false"
 
 \end_inset
 
@@ -1423,7 +1595,7 @@ a (compare with the blue line obtained from the same product).
  It should not be surprising that the MIZ extent presented in this work
  exceeds the total SIE.
  This is because this method detects pixels that are statistically more
- likely to be interested by interannual changes in SIC, as it will be explained
+ likely to be interested by inter-annual changes in SIC, as it will be explained
  further in the next section.
  
 \end_layout
@@ -1563,14 +1735,26 @@ name "subsec:Exceedance"
 \end_layout
 
 \begin_layout Standard
-This analysis has indicated that MIZ-like features in Antarctic sea ice
+The previous analysis revealed that MIZ-like features in Antarctic sea ice
  are not necessarily confined to the outer edge or to coastal polynyas,
  but they can also extend to the interior of the pack ice.
  It is therefore of interest to quantify the likelihood of encountering
  MIZ conditions in a selected month, given the consideration that the SIC
- climatological average is an inadequate descriptor.
- The probability of exceeding a is shown for the threshold 
-\begin_inset Formula $\sigma_{SIA}^{m}>0.2$
+ climatological average is an inadequate descriptor of sea-ice state.
+ The probability of exceeding a given value of variability according to
+ the method in Sec.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Statistical-analysis"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is shown for the substantial threshold 
+\begin_inset Formula $\sigma_{SIA}>0.2$
 \end_inset
 
  in Fig.
@@ -1584,12 +1768,23 @@ noprefix "false"
 
 \end_inset
 
- (0.1 in supplementary).
- It is clear that the SIC variability is different from month to month in
- different sectors of the Southern Ocean.
+ (the maps for the 
+\begin_inset Formula $\sigma_{SIA}>0.1$
+\end_inset
+
+ are shown in Fig.
+ S6 in the supplementary material).
+ The presented value is twice the threshold used in the previous analyses,
+ to assess the probability of encountering highly variable sea-ice states.
+ 
+\end_layout
+
+\begin_layout Standard
+It is evident that the probability of encountering high SIC variability
+ is different from month to month in different sectors of the Southern Ocean.
  This explains why it is difficult to find consistent trends when computing
- hemispheric values.
- For instance, the Ross Sea presents the highest chance to finding variable
+ hemispheric values of SIE.
+ For instance, the Ross Sea presents the highest chance of finding variable
  sea-ice state in March over the entire region, while in December this is
  more likely in the Weddell Sea and the Indian sector up to 90°E.
  The regions where the extent of sea ice from the continent is narrower,
@@ -1599,10 +1794,11 @@ noprefix "false"
  indicator in East Antarctica sea ice is lower with respect to the other
  regions, but the whole sea-ice covered region should be classified as MIZ,
  since the probability of exceeding the 0.1 threshold is above 80% in every
- month (supplementary).
+ month (supplementary Fig.
+ S6).
  This region is therefore one of the most interesting to capture the seasonal
- processes at the air-sea ice-ocean interface, because the MIZ remains at
- the same latitude throughout the year.
+ processes at the air-sea ice-ocean interface, because the MIZ remains confined
+ within the same latitudinal band throughout the year.
 \end_layout
 
 \begin_layout Standard
@@ -1613,13 +1809,30 @@ In general, there are lower chances of exceeding the threshold value both
  find variable conditions because the sea ice advances so far north only
  in a few years.
  February is an interesting month, because almost in every pixel in which
- sea ice has been observed in the satellite records has a similarly low
- probability to exceed the threshold.
+ sea ice has been observed in the satellite records there is a similarly
+ low probability to exceed the threshold.
  This means that there are small chances of encountering brash ice but it
  is more likely that open drift conditions will be prevailing.
- June and July are instead the months of higher chances of encountering
- SIC variability away from the edge towards the interior of the Eastern
- Weddell Sea, and hence a sea ice state that is more typical of the MIZ.
+ At lower latitudes, on the other hand, the probability close to zero is
+ because there are persistent pack ice or polynya conditions (the white
+ regions between the coloured sectors and the Antarctic continent).
+ They can be found in all months but March, which only shows the few regions
+ of multi-year ice in the eastern Weddell Sea and the Ross Sea polynya.
+ These are regions where consolidated conditions and sea-ice features that
+ are more likely to be similar to the Arctic are found according to the
+ satellite records.
+\end_layout
+
+\begin_layout Standard
+June and July are instead the months of higher chances of encountering SIC
+ variability away from the edge towards the interior of the Eastern Weddell
+ Sea, and hence a sea-ice state that is more typical of the MIZ.
+ In these regions, assuming pack ice conditions in numerical models and
+ other conceptual considerations may lead to an underestimation of the air-sea
+ exchanges.
+ The SIC values may be generally close to 100%, but the fluctuations around
+ this value are large, which is indicative of a sea-ice state that is affected
+ by boundary processes.
 \end_layout
 
 \begin_layout Standard
@@ -1662,7 +1875,12 @@ name "fig:Exceedance"
 
 \end_inset
 
-Exceedance
+Monthly values of the exceedance probability for a threshold 
+\begin_inset Formula $\sigma_{SIA}=0.2$
+\end_inset
+
+ from the NOAA/NSIDC CDR.
+ 
 \end_layout
 
 \end_inset
@@ -1684,12 +1902,12 @@ Discussion and conclusions
 \end_layout
 
 \begin_layout Standard
-The Antarctic marginal ice zone is characterized by highly variable sea-ice
+The Antarctic marginal ice zone is characterised by highly variable sea-ice
  features in terms of texture, thickness and combination of ice types during
  its seasonal evolution.
  This work makes the assumption that such changes can be recorded in the
- variations of concentration measured through passive microwave sensors
- from space.
+ variations of sea-ice concentration (SIC) measured through passive microwave
+ sensors from space.
  This releases the constraints of defining the marginal ice zone through
  absolute, and subjective, concentration contours allowing to identify MIZ
  features in the whole ice-covered region.
@@ -1750,124 +1968,120 @@ The method does not require subjective ranges, because the separation between
  pixels of low and high variability is obtained through a distributional
  analysis of the indicator values, which ultimately reveals a bimodal pattern.
  A threshold is nevertheless necessary, which is however derived from a
- distribution that distinguish regions of low variability that are more
- typical of the inner pack regions from the MIZ regions.
+ distribution that distinguish regions of low variability, which are more
+ typical of the inner pack regions, from the more variable MIZ regions.
+ This implies that MIZ conditions can also be found, in agreement with the
+ observed penetration of waves deep into the pack ice 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "kohout2014,kohoutDeviceMeasuringWaveinduced2015,stopaWaveAttenuationArctic2018,massomAntarcticIceShelf2018,vichiEffectsExplosivePolar2019,kohoutObservationsExponentialWave2020"
+literal "false"
+
+\end_inset
+
+.
  The absolute probability value of exceeding a given threshold of variability
  depends on the chosen value of the indicator, but it does not modify the
  relative pattern between the regions.
 \end_layout
 
 \begin_layout Standard
-The use of a SIC threshold for the MIZ definition leads to a misestimation
- of the sea-ice area that can be affected by variable conditions and different
- ice types in the various seasons.
- TO BE REPHRASED BECAUSE IT
-\begin_inset Quotes brd
+One main aspect of this methodology is the use of daily SIC anomalies computed
+ against the climatological monthly mean.
+ This is based on the evidence that Antarctic sea ice has a clear seasonal
+ pattern 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "eayrsUnderstandingSeasonalCycle2019"
+literal "false"
+
 \end_inset
 
-S MORE NUANCED: There is no apparent incongruence in the mismatch between
- different estimates of the MIZ extent.
+ but high variability from year to year and uncertain trends in different
+ regions 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "matear2015,yuanIncreaseAntarcticSea2017,parkinson40yRecordReveals2019a"
+literal "false"
+
+\end_inset
+
+.
+ The use of this anomaly not only allows to capture changes affected by
+ interannual variations (which would indeed be captured more adequately
+ by using the anomaly with respect to the daily or weekly climatology) but
+ also, and more specifically, the seasonal advance and retreat (which would
+ disappear using the daily/weekly climatology) and the intra-monthly variability
+ (pixels that show some change around the monthly climatology).
+ All these criteria are typical of the marginal ice zone, and as demonstrated
+ in this analysis, they are observed far into the region traditionally considere
+d the realm of the pack ice.
+ 
+\end_layout
+
+\begin_layout Standard
+The presented results have shown that this indicator is independent of the
+ algorithm and sensors, and less sensitive to the uncertainties of the brightnes
+s temperature retrieval (the standard 15% threshold).
+ As long as each product is consistent and not affected by intrinsic biases,
+ the proposed analysis will map relative differences between ice types,
+ even if the specific ice type cannot be classified.
+ The use of a subjective SIC threshold for the MIZ definition leads to a
+ misestimation of the sea-ice area that can be affected by variable conditions
+ and different ice types in the various seasons.
+ There is no apparent incongruence in the mismatch between different estimates
+ of the MIZ extent.
  In terms of the seasonal climatology, the MIZ area obtained through the
  use of a fixed threshold is underestimated in winter, and far below the
  summer area.
+ The estimated MIZ area using the indicator is instead much extended in
+ summer.
  This may seem paradoxical, because the region classified as MIZ cannot
  be larger than the sea-ice extent.
- This is an artefact of the use of climatological means and the 15% baseline,
- which skews the distribution towards the low values, disregarding the natural
- large variability of sea ice.
+ This is however an artefact of the use of climatological means and the
+ 15% baseline, which skews the distribution towards the low values, disregarding
+ the natural large variability of Antarctic sea ice and the diversity of
+ ice types.
+ The summer sea-ice extent based on concentration threshold is therefore
+ underestimated.
  It is thus not surprising that identification of the ice edge is not carried
  out during summertime, because of the fragmentation of the ice surface.
 \end_layout
 
 \begin_layout Standard
-The use of daily of anomalies computed against the climatological monthly
- mean is justified by: 
-\end_layout
-
-\begin_layout Standard
-calcolare l'anomalia giornaliera sulla media mensile climatologica e' la
- misura che serve.
- Lo scopo e' identificare regioni che sono influenzate 1) da variazioni
- interannuali (e qui si dovrebbe usare l'anomalia rispetto alla climatologia
- daily o weekly) ma anche 2) dalla transizione stagionale del ghiaccio (il
- progressivo congelamento) e 3) che hanno variabilita' dentro al mese (il
- ghiaccio e' piu' o meno compatto ma oscilla).
- Tutte questi tre criteri sono tipici della zona marginale.
- Il punto 2) e' tipico ovunque, e quindi mi genera il rumore stagionale
- di fondo che questo indicatore e' in grado di misurare.
-\end_layout
-
-\begin_layout Standard
-It is independent of the algorithm and sensors, and less sensitive to the
- uncertainties of the brightness temperature retrieval.
- As long as each product is consistent and not affected by intrinsic biases,
- the proposed analysis will map relative differences between ice types,
- even if the specific ice type cannot be classified.
-\end_layout
-
-\begin_layout Standard
 These results have several applications.
- 
-\end_layout
-
-\begin_layout Standard
-However, the circumpolar, unbounded features of the Antarctic MIZ makes
- more difficult to aggregate in a Southern Hemisphere view, similarly to
- what happens to trends in sea-ice extent.
- The aggregation masks a large regional variability, and hence it is difficult
- to derive overall significant signals
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-add references
-\end_layout
+ They introduce a broader perspective for assessing the predictability of
+ ice conditions for forecasting, operational activities and also as a diagnostic
+ to evaluate climate model capabilities to simulate the adequate conditions
+ for ecosystem and biogeochemistry studies 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "williamsCountingWhalesChallenging2014,meyneckeResponsesHumpbackWhales2020"
+literal "false"
 
 \end_inset
 
 .
- This regional contrast is likely to be exacerbated in the MIZ, due to its
- naturally divergent features and the increased interaction with the Antarctic
- Circumpolar Current during the advancement phase.
- During the retreat, conditions are more similar to the Arctic: the progressive
- melting and the breaking of ice floes increase the effectiveness of the
- boundary layer processes, which rearrange the pack ice into open drift
- conditions.
-\end_layout
-
-\begin_layout Standard
-Introduce the concept of predictability of ice conditions for forecasting,
- operational activities and also as a diagnostic to evaluate climate model
- capabilities to simulate the adequate conditions for ecosystem and biogeochemis
-try studies.
-\end_layout
-
-\begin_layout Standard
-From an operational view point, these maps can be used to plan scientific
- and logistical activities in seasonally ice-covered Southern Ocean waters.
- This method should not be used to measure the extent of pack ice conditions,
- because multi-year ice is not counted due to the reduced inter-annual variabili
-ty.
- The MIZ area could however be removed from the SIC-based sea-ice extent,
- to obtain an adjusted estimate that takes into account the regions of high
- variability.
-\end_layout
-
-\begin_layout Standard
-Due to its construction, the method should be mostly applied in climatological
+ Due to its construction, the method should be mostly applied in climatological
  or medium to long-term investigations of ice variability.
  It may also be used in an operational context, for instance comparing each
  daily anomaly against the long term distribution of anomalies in a particular
  region.
  This has not however been verified in this analysis and would deserve dedicated
  work.
-\end_layout
-
-\begin_layout Standard
-Finally, the possibility to see patterns of intensity within the region
+ From an operational view point, these maps can be used to plan scientific
+ and logistical activities in seasonally ice-covered Southern Ocean waters.
+ This method should not be used to measure the extent of pack ice conditions,
+ because multi-year ice is not counted due to the high-persistence and reduced
+ inter-annual variability.
+ The MIZ area could however be removed from the SIC-based sea-ice extent,
+ to obtain an adjusted estimate that takes into account the regions of high
+ variability.
+ Finally, the possibility to see patterns of intensity within the region
  classified as MIZ, would allow to identify further linkages with the atmospheri
-c boundary layer, as for instance the role played by polar cyclones in shaping
- the character of Antarctic sea ice.
+c boundary layer, as for instance looking for associations between regions
+ of high synoptic variability and corresponding changes in the character
+ of Antarctic sea ice.
 \end_layout
 
 \begin_layout Section*
@@ -1895,8 +2109,20 @@ literal "false"
 \end_inset
 
 .
- The post-processed data and the code used to produce the figures is available
- at GITHUB-LINK
+ The code used to produce the figures is available at GITHUB-LINK and the
+ post-processed data used in the analysis are available HERE.
+\end_layout
+
+\begin_layout Section*
+Acknowledgements
+\end_layout
+
+\begin_layout Standard
+This work has emerged from a collaboration between multiple projects.
+ It has been supported by the National Research Foundation of South Africa
+ (South African National Antarctic Programme), the whalesandclimate.org project
+ and the EU H2020 project CRiceS.
+ 
 \end_layout
 
 \begin_layout Standard

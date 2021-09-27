@@ -1,0 +1,480 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass scrartcl
+\begin_preamble
+
+\end_preamble
+\use_default_options true
+\maintain_unincluded_children false
+\language british
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command bibtex
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize a4paper
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine natbib
+\cite_engine_type authoryear
+\biblio_style elsarticle-harv
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date true
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 2cm
+\topmargin 2cm
+\rightmargin 2cm
+\bottommargin 2cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style british
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Supplementary material 
+\end_layout
+
+\begin_layout Title
+A statistical definition of the Antarctic marginal ice zone
+\end_layout
+
+\begin_layout Author
+Marcello Vichi
+\end_layout
+
+\begin_layout Address
+Department of Oceanography
+\begin_inset Newline newline
+\end_inset
+
+Marine and Antarctic Research centre for Innovation and Sustainability (MARIS)
+\begin_inset Newline newline
+\end_inset
+
+University of Cape Town, 7701, Rondebosch, South Africa
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+setcounter{figure}{0}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+renewcommand{
+\backslash
+figurename}{Fig.}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+renewcommand{
+\backslash
+thefigure}{S
+\backslash
+arabic{figure}}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename figures/figS1_sigmaSIA_GM.png
+	lyxscale 40
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+As in Fig.
+ 1 of the main text but for the NOAA/NSIDC GM (1979-2019).
+ Top panel: median of the monthly standard deviation of sea-ice concentration
+ daily anomaly (
+\begin_inset Formula $\sigma_{SIA}$
+\end_inset
+
+), plotted on a stereographic projection.
+ The pixels with SIC=0 have been excluded from the analysis of the distribution.
+ Bottom panel: empirical probability and cumulative density functions of
+ the median values from the map (PDF: black line and CDF: blue line).
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename figures/figS2_sigmaSIA_OSI-450.png
+	lyxscale 40
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+As in Fig.
+ 1 of the main text but for the OSI-450 CDR (1979-2015).
+ Top panel: median of the monthly standard deviation of sea-ice concentration
+ daily anomaly (
+\begin_inset Formula $\sigma_{SIA}$
+\end_inset
+
+), plotted on a stereographic projection.
+ The pixels with SIC=0 have been excluded from the analysis of the distribution.
+ Bottom panel: empirical probability and cumulative density functions of
+ the median values from the map (PDF: black line and CDF: blue line).
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename figures/figS3_sigmaSIA_climatology_GM.png
+	lyxscale 30
+	width 90page%
+	BoundingBox 200bp 200bp 2500bp 2600bp
+	clip
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+As in Fig.
+ 3 of the main text but for the NSIDC/NOAA GM dataset.
+ Climatological values of the indicator 
+\begin_inset Formula $\left(\overline{\sigma}_{SIA}^{n}\right)$
+\end_inset
+
+, computed as the standard deviation of the daily anomalies for each month
+ in the whole time series.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename figures/figS4_sigmaSIA_climatology_OSI-450.png
+	lyxscale 30
+	width 90page%
+	BoundingBox 200bp 200bp 2500bp 2600bp
+	clip
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+As in Fig.
+ 3 of the main text but for the OSI-450 dataset.
+ Climatological values of the indicator 
+\begin_inset Formula $\left(\overline{\sigma}_{SIA}^{n}\right)$
+\end_inset
+
+, computed as the standard deviation of the daily anomalies for each month
+ in the whole time series.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename figures/figS5_MIZ_seasonality_015.png
+	lyxscale 30
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+As in Fig.
+ 5 of the main text but with 
+\begin_inset Formula $\sigma_{SIA}^{m}>0.15$
+\end_inset
+
+.
+ Seasonal cycle of the MIZ extent estimated from the a) SIC criterion 
+\begin_inset Formula $\left(0.15\leq\textrm{SIC}<0.80\right)$
+\end_inset
+
+ and b) the 
+\begin_inset Formula $\sigma_{SIA}$
+\end_inset
+
+ indicator.
+ The NOAA/NSIDC GM curve is not shown because very similar to the BT data
+ set.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename figures/figS6_exceedance_01.png
+	lyxscale 30
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Monthly values of the exceedance probability for a threshold 
+\begin_inset Formula $\sigma_{SIA}=0.1$
+\end_inset
+
+ from the NOAA/NSIDC CDR.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
