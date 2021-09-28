@@ -2109,8 +2109,17 @@ literal "false"
 \end_inset
 
 .
- The code used to produce the figures is available at GITHUB-LINK and the
- post-processed data used in the analysis are available HERE.
+ The code used to produce the figures is available at 
+\begin_inset CommandInset href
+LatexCommand href
+name "https://github.com/mvichi/antarcticMIZ.git"
+target "https://github.com/mvichi/antarcticMIZ.git"
+literal "false"
+
+\end_inset
+
+ and the post-processed data used in the analysis will be made available
+ through the ZivaHub repository at the University of Cape Town.
 \end_layout
 
 \begin_layout Section*
@@ -2120,8 +2129,17 @@ Acknowledgements
 \begin_layout Standard
 This work has emerged from a collaboration between multiple projects.
  It has been supported by the National Research Foundation of South Africa
- (South African National Antarctic Programme), the whalesandclimate.org project
- and the EU H2020 project CRiceS.
+ (South African National Antarctic Programme and Earth System Science Research
+ Program), the 
+\begin_inset CommandInset href
+LatexCommand href
+name "whalesandclimate.org"
+target "https://whalesandclimate.org"
+literal "false"
+
+\end_inset
+
+ project and the EU H2020 project CRiceS.
  
 \end_layout
 
