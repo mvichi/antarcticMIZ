@@ -3,6 +3,7 @@
 """
 Created on Fri May 21 07:30:06 2021
 Analyse the sigmaSIA distribution and fitting distro
+Produces Figure 2 of the manuscript
 @author: vichi
 """
 
@@ -15,12 +16,12 @@ import scipy.stats
 import matplotlib.pyplot as plt
 
 #%% Load monthly sigmaSIA
-DIR='/mnt/d/SEAICE/NSIDC-G02202_V3/south/'
+#DIR='/mnt/d/SEAICE/NSIDC-G02202_V4/south/'
+DIR='./'
 dfile=DIR+'NSIDC_cdr_m_sigmaSIA.nc'
 ds = xr.open_dataset(dfile)
-sigmaSIA=ds.sigmaSIA.where(ds.sigmaSIA>0,drop=True)
+sigmaSIA=ds.sigmaSIA.where(ds.sigmaSIA>0,drop=True)/100.
 #%% Distribution fitting
-# sample too big for running K-S (see below)
 df=pd.DataFrame(sigmaSIA.values.flatten(),columns=['sSIA'])
 df=df.dropna()
 df.describe()
@@ -34,12 +35,12 @@ cdf_fit=dist.cdf(x,param[0], loc=param[1], scale=param[2])
 # dist_exp = getattr(scipy.stats, distribution)
 # param_exp = dist_exp.fit(y) # returns b, location and scale
 # cdf_fit_exp=dist.cdf(x,*param_exp[:-2], loc=param[-2], scale=param_exp[-1])
-#%% Figure 1: sigmaSIA distribution
+#%% Figure 2: sigmaSIA distribution
 # use larger bins to eliminate gaps
 f,ax = plt.subplots()
 h1 = sigmaSIA.plot.hist(ax=ax,bins=np.arange(0,0.5,0.02),
             density=True,histtype='step',color='k')
-p_cdf = np.arange(0,1.001,0.001)
+p_cdf = np.arange(0,1.01,0.01)
 quant=sigmaSIA.quantile(p_cdf)
 ax.set_title('')
 ax.set_xlim([-0.01,0.5])
@@ -57,6 +58,7 @@ ax2.legend(loc='center right')
 # ax.legend(objects, labs)
 
 #%% Compute the Kolmogorov-Smirnov test
+# sample too big for running K-S (submsample 5000 values)
 import random
 # normalize and subsample for K-S
 y = random.sample(list(df.values), 5000)

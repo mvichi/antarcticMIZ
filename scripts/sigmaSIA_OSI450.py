@@ -86,7 +86,7 @@ ax2t.plot(quant.values,p_cdf)
 ax2t.set_ylabel('CDF')
 
 # Plot the median
-# This is used to define a threshold of variability that is indicative of 
+# 1This is used to define a threshold of variability that is indicative of 
 # the MIZ
 
 # fmed=plt.figure(figsize=(6, 6))
@@ -107,8 +107,8 @@ q.plot(ax=axmed,transform=data_crs,
 
 #axmed.set_extent([-180, 180, -90, -52], ccrs.PlateCarree())
 #plt.tight_layout(pad=1)
-#%% Plot the climatological median sigmaSIA for each month
-field = OSIclim/100. # convert to fraction
+#%% Plot the climatological sigmaSIA for each month
+field = OSIclim
 field['xc'] = field.xc*1.e3 # convert coordinates from km to m
 field['yc'] = field.yc*1.e3 # convert coordinates from km to m
 
