@@ -1,7 +1,7 @@
 #!/bin/bash
 # chain of processing
-#cdo -P 8 -monmean seaice_conc_daily_sh_1979_2019_v04FIX.nc seaice_conc_mon_sh_1979_2019_v04FIX.nc
-#cdo -P 8 -ymonmean seaice_conc_mon_sh_1979_2019_v04FIX.nc seaice_conc_monclim_sh_1979_2019_v04FIX.nc
+cdo -P 8 -monmean seaice_conc_daily_sh_1979_2019_v04FIX.nc seaice_conc_mon_sh_1979_2019_v04FIX.nc
+cdo -P 8 -ymonmean seaice_conc_mon_sh_1979_2019_v04FIX.nc seaice_conc_monclim_sh_1979_2019_v04FIX.nc
 # needs -b 8 bits for a small value
 cdo -b 8 -P 8 -ymonsub seaice_conc_daily_sh_1979_2019_v04FIX.nc seaice_conc_monclim_sh_1979_2019_v04FIX.nc seaice_conc_dayanom_sh_1979_2019_v04FIX.nc
 
