@@ -23,10 +23,10 @@ To produce the same results shown in the paper, the user should follow this work
 * Remove the time and space interpolation with python script NSIDC-G02202\_V4-V3.py
 * Run process\_sigmaSIA\_NSIDC\_sh(nh).sh to compute the sigmaSIA
 
-The following processed climatologies are directly available:
-1. NSIDC_cdr_clim_m_sigmaSIA.nc <DOI> Climatological monthly sigmaSIA (climatological 'pooled' monthly std of daily anomaly) from NOAA/NSIDC CDR Southern Hemisphere Sea Ice Concentration
-2. NSIDC_cdr_clim_m_maskMIZ.nc <DOI> Climatological mask of the MIZ extent using a $sigma_{SIA}>0.1$ criterion
-3. NSIDC_cdr_clim_m_sigmaSIA_exceedance.nc <DOI> Climatological probability maps of exceeding $sigma_{SIA}>0.1$ and $sigma_{SIA}>0.2$
+The following processed climatologies are directly available on Zenodo <https://doi.org/10.5281/zenodo.7077676>:
+1. NSIDC_cdr_clim_m_sigmaSIA.nc: Climatological monthly $\sigma_{SIA}$ (climatological 'pooled' monthly std of daily anomaly) from NOAA/NSIDC CDR Southern Hemisphere Sea Ice Concentration
+2. NSIDC_cdr_clim_m_maskMIZ.nc: Climatological mask of the MIZ extent using a $\sigma_{SIA}>0.1$ criterion
+3. NSIDC_cdr_clim_m_sigmaSIA_exceedance.nc: Climatological probability maps of exceeding $\sigma_{SIA}>0.1$ and $\sigma_{SIA}>0.2$
 
 # References
 
