@@ -30,4 +30,5 @@ The following processed climatologies are directly available on Zenodo <https://
 
 # References
 
-Vichi, M.: An indicator of sea ice variability for the Antarctic marginal ice zone, The Cryosphere, in press, 2022
+Vichi, M., 2022. An indicator of sea ice variability for the Antarctic marginal ice zone. 
+The Cryosphere 16, 4087–4106. https://doi.org/10.5194/tc-16-4087-2022
